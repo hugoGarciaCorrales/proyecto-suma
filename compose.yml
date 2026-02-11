@@ -1,6 +1,4 @@
 services:
   app:
     image: proyecto-suma
-    environment:
-      - VAR_A=1
-      - VAR_B=2
+    env_file: ".env"
