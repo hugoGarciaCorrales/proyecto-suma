@@ -29,6 +29,8 @@ jobs:
 
       - name: Push Image
         run: docker push ghcr.io/${REPOSITORY,,}:latest
+        env:
+          REPOSITORY: ${{github.repository}}
 
       
 
