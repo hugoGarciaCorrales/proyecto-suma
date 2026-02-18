@@ -32,24 +32,27 @@ jobs:
         env:
           REPOSITORY: ${{github.repository}}
 
-      - name: Despliegue por SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{secrets.SERVER_HOST}}
-          username: ${{secrets.SERVER_USER}}
-          key: ${{secrets.SSH_PRIV_KEY}}
-          script: whoami
+      # - name: Despliegue por SSH
+      #   uses: appleboy/ssh-action@v1
+      #   with:
+      #     host: ${{secrets.SERVER_HOST}}
+      #     username: ${{secrets.SERVER_USER}}
+      #     key: ${{secrets.SSH_PRIV_KEY}}
+      #     script: whoami
 
       
 
 
       
-      # - name: Setup SSH
-      #   run: |
-      #     mkdir -p ~/.ssh
-      #     echo "${{secrets.SSH_PRIV_KEY}}" > ~/.ssh/id_rsa
-      #     chmod 600 ~/.ssh/id_rsa
-      #     ssh-keyscan -H ${{secrets.SERVER_HOST}}" >> ~/.ssh/known_hosts
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{secrets.SSH_PRIV_KEY}}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{secrets.SERVER_HOST}}" >> ~/.ssh/known_hosts
 
-      # - name: Despliegue en el servidor
-      #   run: 
+      - name: Despliegue en el servidor
+        run: |
+          ssh ${{secrets.SERVER_USER}}@${{secrets.SERVER_HOST}} << "EOF"
+          touch test.txt
+          EOF
