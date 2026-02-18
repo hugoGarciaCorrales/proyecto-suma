@@ -1,5 +1,9 @@
 name: Despliegue usando ssh
 
+# permissions: 
+#   contents: read
+#   packages: write
+
 on:
   push:
     branches:
@@ -9,12 +13,22 @@ jobs:
     runs-on: ubuntu-slim
 
     steps:
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{secrets.SSH_PRIV_KEY}}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{secrets.SERVER_HOST}}" >> ~/.ssh/known_hosts
+      - name: Check Out Repository
+        uses: actions/checkout@v6
 
-      - name: Despliegue en el servidor
-        run: 
+      - name: Test
+        run: ls -la
+
+      
+
+
+      
+      # - name: Setup SSH
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{secrets.SSH_PRIV_KEY}}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
+      #     ssh-keyscan -H ${{secrets.SERVER_HOST}}" >> ~/.ssh/known_hosts
+
+      # - name: Despliegue en el servidor
+      #   run: 
