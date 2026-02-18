@@ -54,5 +54,5 @@ jobs:
       - name: Despliegue en el servidor
         run: |
           ssh ${{secrets.SERVER_USER}}@${{secrets.SERVER_HOST}} << 'EOF'
-          touch /temp/test
+            touch /tmp/test
           EOF
